@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>IP Validation</title>
+</head>
+    <body>
+    <form action="">
+        <div class="container">
+            <div class="title">
+                <img src="{{ url_for('static', filename='assets/dog_meme.jpg') }}" alt="">
+                <h1>IP Validation</h1>
+                <img src="{{ url_for('static', filename='assets/dog_meme.jpg') }}" alt="">
+            </div>
+    
+            <input type="text" id="ip" placeholder="Digite o IP">
+            <button class="search" type="submit">Buscar</button>
+    
+            <pre id="resp">
+                <!-- Aqui vou mostrar o monitoramento dos meus logs -->
+            </pre>
+        </div>
+    </form>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    </body>
+</html>
