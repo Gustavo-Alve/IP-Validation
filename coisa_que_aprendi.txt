@@ -4,17 +4,22 @@ Curiosidades
 2- Para enviar um objeto em js para o flask voce converte ele em Json e quando vai receber do python/Flask voce converte de 
 json para objeto Js
 
+3 - tracert mostra o caminho que os pacotes fazem na internet (ele nao sabe os caminhos ele interroga cada roteador no caminho ele vai de pulo em pulo )
+TTL (time to live)
 
+
+
+
+--------------------------------------------------------------------------------------------------------------------
 Bibliotecas 
-
 import subprocess || biblioteca usada para meu codigo comunicar com meu sistema operacional e executar o ping no cmd ou no shell
-
-
+--------------------------------------------------------------------------------------------------------------------
 import platform || biblioteca usada para obter informações do sistema operacional onde o codigo esta rorando
 
 print(platform.system())     # Ex: 'Windows', 'Linux', 'Darwin'
 print(platform.release())    # Versão do sistema
 print(platform.machine())    # Arquitetura (ex: x86_64)
 print(platform.processor())  # Processador
+--------------------------------------------------------------------------------------------------------------------
 
 

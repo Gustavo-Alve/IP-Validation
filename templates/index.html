@@ -18,12 +18,22 @@
             <input type="text" id="ip" placeholder="Digite o IP">
             <button class="search" type="submit">Buscar</button>
     
-            <pre id="resp">
-                <!-- Aqui vou mostrar o monitoramento dos meus logs -->
-            </pre>
         </div>
     </form>
+    
+    <div class="blocks">
 
+    <div class="card">
+        <div class="title_process">PING</div>
+        <h2 class="resp"></h2>
+    </div>
+
+    <div class="card">
+        <div class="title_process">TRACERT</div>
+        <h2 class="resp_tracert"></h2>
+    </div>
+
+</div>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     </body>
 </html>
