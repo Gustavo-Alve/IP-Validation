@@ -25,8 +25,54 @@ def ping_ip():
             ["ping", param, "4", ip],  #aqui onde ele executa o comando ping param(-n / -c) "1", ip (valor do nosso js)
             capture_output=True,
             text=True,
-            encoding= "cp850"
+            encoding= "cp850",
+            timeout=60
         )
+        if result.returncode == 0:
+            return jsonify({
+                "status": "ok",
+                "output": result.stdout
+            })
+        else:
+            return jsonify({
+                "status": "offline",
+                "output": result.stderr
+            })
+
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": str(e)
+        })
+
+
+#rota onde vou executar meu tracert 
+@app.route("/tracert", methods=["POST"])
+def tracert_ip():
+    data = request.get_json() or {}
+    ip = data.get("ip")
+
+    if not ip:
+        return jsonify({
+            "status": "error",
+            "message": "IP inválido"
+        })
+
+    try:
+        if platform.system().lower() == "windows":
+            command = ["tracert", "-d", "-h", "20", "-w", "800", ip] #comando que coloco no meu windows
+        else:
+            command = ["traceroute", ip]
+
+        result = subprocess.run(
+            command,
+            capture_output=True,
+            text=True,
+            encoding= "cp850",
+            timeout=60
+
+        )
+
         if result.returncode == 0:
             return jsonify({
                 "status": "ok",
@@ -44,47 +90,6 @@ def ping_ip():
             "message": str(e)
         })
     
-
-@app.route("/tracert", methods=["POST"])
-def tracert_ip():
-    data = request.get_json() or {}
-    ip = data.get("ip")
-
-    if not ip:
-        return jsonify({
-            "status": "error",
-            "message": "IP inválido"
-        })
-
-    try:
-        if platform.system().lower() == "windows":
-            command = ["tracert", ip]
-        else:
-            command = ["traceroute", ip]
-
-        result = subprocess.run(
-            command,
-            capture_output=True,
-            text=True,
-            encoding= "cp850"
-        )
-
-        if result.returncode == 0:
-            return jsonify({
-                "status": "ok",
-                "output": result.stdout
-            })
-        else:
-            return jsonify({
-                "status": "offline",
-                "output": result.stderr
-            })
-
-    except Exception as e:
-        return jsonify({
-            "status": "error",
-            "message": str(e)
-        })
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

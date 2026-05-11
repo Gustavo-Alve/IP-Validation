@@ -2,8 +2,10 @@ const frm = document.querySelector('form');
 const ip_value = document.getElementById('ip');
 const resp = document.querySelector('.resp');
 const resp_tracert = document.querySelector('.resp_tracert');
+const resp_path = document.querySelector('.resp_path');
 
 
+//função que adiciona animação de digitar
 function typeText(element, text, speed = 10) {
     element.innerText = "";
     element.classList.add("typing");
@@ -50,7 +52,11 @@ frm.addEventListener("submit", async (e) => {
         resp.innerText = 'Erro IP nao Encontrado';
     }
 
-    // 🔹 TRACERT
+
+
+
+
+    // TRACERT
     const response_tracert = await fetch("http://127.0.0.1:5000/tracert", {
         method: "POST",
         headers: {

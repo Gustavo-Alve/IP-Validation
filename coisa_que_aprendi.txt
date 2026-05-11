@@ -7,8 +7,7 @@ json para objeto Js
 3 - tracert mostra o caminho que os pacotes fazem na internet (ele nao sabe os caminhos ele interroga cada roteador no caminho ele vai de pulo em pulo )
 TTL (time to live)
 
-
-
+4 -  encoding= "cp850" padrão usado para transformar caracteres em bytes e voltar deles.
 
 --------------------------------------------------------------------------------------------------------------------
 Bibliotecas 
@@ -23,3 +22,6 @@ print(platform.processor())  # Processador
 --------------------------------------------------------------------------------------------------------------------
 
 
+comandos para adicionar no codigo 
+
+pathping facebook.com.br
