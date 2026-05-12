@@ -2,7 +2,7 @@ const frm = document.querySelector('form');
 const ip_value = document.getElementById('ip');
 const resp = document.querySelector('.resp');
 const resp_tracert = document.querySelector('.resp_tracert');
-const resp_path = document.querySelector('.resp_path');
+const domainImgDiv = document.querySelector('.domain_img');
 
 
 //função que adiciona animação de digitar
@@ -25,6 +25,31 @@ function typeText(element, text, speed = 10) {
     typing();
 }
 
+//função pra adicionar uma imagem de algum dominio
+async function showDomainImage(domain) {
+    if (!domainImgDiv) return;
+
+    domainImgDiv.innerHTML = '<div class="loading-favicon">🔍</div>';
+
+    let cleanDomain = domain.replace(/^https?:\/\//, '').split('/')[0];
+
+    const faviconUrl = `https://www.google.com/s2/favicons?sz=128&domain=${cleanDomain}`;
+
+    const img = document.createElement('img');
+    img.src = faviconUrl;
+    img.alt = cleanDomain;
+    img.className = 'domain-favicon';
+
+    img.onload = () => {
+        domainImgDiv.innerHTML = '';
+        domainImgDiv.appendChild(img);
+    };
+
+    img.onerror = () => {
+        domainImgDiv.innerHTML = '<span class="no-image">🌐</span>';
+    };
+}
+
 frm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -34,6 +59,12 @@ frm.addEventListener("submit", async (e) => {
         alert('Digite um valor');
         return;
     }
+    //limpa os campos apos começar uma nova pesquisa
+    resp.innerText = '';
+    resp_tracert.innerText = '';
+    domainImgDiv.innerHTML = '';
+    showDomainImage(value);
+
     const response = await fetch("http://127.0.0.1:5000/ping", { //requisição pro meu flask
         method: "POST", //tipo de requisição que meu flask esta esperando
         headers: {

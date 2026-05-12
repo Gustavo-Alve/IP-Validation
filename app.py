@@ -91,5 +91,31 @@ def tracert_ip():
         })
     
 
+
+# No app.py, crie uma nova rota
+@app.route("/favicon", methods=["POST"]) #end point onde chamo o icone
+def get_favicon():
+    data = request.get_json() #pega o json enviado do meu input no js exemplo "google.com.br / 8.8.8.8"
+    domain = data.get("domain") #Depois vira um dict "domain": "google.com.br/8.8.8.8"
+    
+    if not domain or "." not in domain: #se nao exisitr o dominio ele retorna um None
+        return jsonify({"favicon": None})
+    
+    # Remove http/https se tiver
+    domain = domain.replace("http://", "").replace("https://", "").split("/")[0] #remove parte desnecessarias de um endereço https/http
+    #entra https://youtube.com/watch?=123
+    #sai youtube.com/watch?=123
+    #divide atraves da / 
+    #e fica apenas youtube.com
+    
+    # URL do favicon (muitos sites têm em /favicon.ico)
+    favicon_url = f"https://www.google.com/s2/favicons?sz=128&domain={domain}" #domain = youtube.com
+    
+    return jsonify({
+        "favicon": favicon_url,
+        "domain": domain
+    })
+    
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
